@@ -109,7 +109,6 @@ on property:sys.camera.user.removed=*
 
 namespace_imports = [
     'vendor/oplus/camera/giulia/blobs',
-    'vendor/oneplus/giulia',
     'vendor/oneplus/sm8650-common',
     'hardware/oplus',
 ]
