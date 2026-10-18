@@ -1,0 +1,63 @@
+From 1234567890abcdef1234567890abcdef12345678 Mon Sep 17 00:00:00 2001
+From: panz <panz@localhost>
+Date: Tue, 29 Sep 2026 10:53:00 +0200
+Subject: [PATCH 3/3] OplusBlurProcess: Prevent NPE when segmentation preview is uninitialized
+
+If segInit() returns null, indexing xb/b.w[0] and zb/k.w[1] throws
+NullPointerException: Attempt to read from null array.
+Safely return false/exit early if w is null.
+---
+ smali/xb/b.smali | 14 ++++++++++++++
+ smali/zb/k.smali |  5 +++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/smali/xb/b.smali b/smali/xb/b.smali
+index 926d2ba..d26a645 100644
+--- a/smali/xb/b.smali
++++ b/smali/xb/b.smali
+@@ -418,6 +418,13 @@
+     .line 122
+     sget-object v0, Lxb/b;->w:[I
+ 
++    if-nez v0, :cond_w_not_null
++
++    move v11, v12
++
++    goto :goto_2
++
++    :cond_w_not_null
+     .line 123
+     .line 124
+     aget v0, v0, v12
+@@ -520,6 +527,13 @@
+     .line 174
+     sget-object v2, Lxb/b;->w:[I
+ 
++    if-nez v2, :cond_w_not_null_2
++
++    move v11, v12
++
++    goto :goto_2
++
++    :cond_w_not_null_2
+     .line 175
+     .line 176
+     aget v2, v2, v12
+diff --git a/smali/zb/k.smali b/smali/zb/k.smali
+index b2dd38b..95986e9 100644
+--- a/smali/zb/k.smali
++++ b/smali/zb/k.smali
+@@ -826,6 +826,11 @@
+     .line 101
+     sget-object p0, Lxb/b;->w:[I
+ 
++    if-nez p0, :cond_w_size_not_null
++
++    return-void
++
++    :cond_w_size_not_null
+     .line 102
+     .line 103
+     const/4 p1, 0x1
+-- 
+2.54.0
