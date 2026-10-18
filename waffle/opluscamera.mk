@@ -4,6 +4,19 @@ LOCAL_PATH := vendor/oplus/camera/waffle
 PRODUCT_PACKAGES += \
     android.hardware.graphics.common-V3-ndk.vendor
 
+# Camera extension runtime libraries needed by libcsextimpl.so
+PRODUCT_PACKAGES += \
+    android.frameworks.cameraservice.common@2.0 \
+    android.frameworks.cameraservice.device@2.0 \
+    android.frameworks.cameraservice.service@2.2 \
+    android.hardware.camera.device-V3-ndk \
+    android.hardware.camera.device-V4-ndk \
+    android.hardware.camera.provider-V3-ndk \
+    android.hardware.camera.provider-V4-ndk \
+    android.hardware.camera.provider@2.7 \
+    libcameraservice \
+    libdynamic_depth
+
 # Framework
 # PRODUCT_BOOT_JARS += \
 #    oplus-framework
