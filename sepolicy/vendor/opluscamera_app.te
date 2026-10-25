@@ -77,8 +77,10 @@ allow opluscamera_app hal_system_suspend_service:service_manager find;
 dontaudit opluscamera_app vendor_hal_qspmhal_service:service_manager find;
 
 
-# Allow binder communication with QSPM HAL
+# Allow binder communication with QSPM HAL and Perf HAL
 allow opluscamera_app vendor_hal_qspmhal_default:binder { call transfer };
+allow opluscamera_app vendor_hal_perf_default:binder { call transfer };
+allow vendor_hal_perf_default opluscamera_app:binder { call transfer };
 
 # cameraserver sets scheduling policy of camera binder/capture threads.
 allow cameraserver opluscamera_app:process setsched;
